@@ -1,0 +1,9 @@
+{
+  "critical_yield_threshold": 82.0,
+  "high_risk_yield_threshold": 90.0,
+  "max_temp": 200.0,
+  "max_pressure": 5.0,
+  "max_vibration": 0.3,
+  "max_rework_rate": 5.0,
+  "max_scrap_rate": 2.0
+}
