@@ -42,7 +42,12 @@ all_subagents = [
     recommender_agent
 ]
 
+# Reset parent_agent reference to allow dynamic reloading / re-registration
+for sa in all_subagents:
+    sa.parent_agent = None
+
 # --------------------------------------------------
+
 # 4. MASTER ROOT AGENT SETUP
 # --------------------------------------------------
 yield_agent = Agent(
