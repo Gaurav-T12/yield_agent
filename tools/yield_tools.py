@@ -76,7 +76,7 @@ def _get_trained_model():
 def predict_lot_yield(lot_id: str) -> Dict[str, Any]:
     """Retrieves pre-calculated prediction and risk from the master ledger once analyzed by Express."""
     sql = f"""
-    SELECT Product_ID, Target_Yield_Pct, Agent_Predicted_Yield_Pct, Agent_Risk_Level, Status
+    SELECT Product_ID, Target_Yield_Pct, Agent_Predicted_Yield_Pct, Agent_Risk_Level, Status, Deficit_Units
     FROM `{TABLE_MASTER_LEDGER}` WHERE Lot_ID = @lot_id LIMIT 1
     """
     job_config = bigquery.QueryJobConfig(query_parameters=[bigquery.ScalarQueryParameter("lot_id", "STRING", lot_id)])
@@ -99,11 +99,13 @@ def predict_lot_yield(lot_id: str) -> Dict[str, Any]:
         predicted_yield = round(float(predicted_yield), 1)
         risk = row.get('Agent_Risk_Level', 'Low')
         target_yield = float(row['Target_Yield_Pct']) if pd.notna(row['Target_Yield_Pct']) else 92.0
+        deficit_units = int(row['Deficit_Units']) if pd.notna(row['Deficit_Units']) else 0
             
         return {
             "lot_id": lot_id, "product_id": row['Product_ID'],
             "predicted_yield_percent": predicted_yield,
             "target_yield_percent": target_yield,
+            "deficit_units": deficit_units,
             "risk_level": risk, "status": "success"
         }
     except Exception as e:

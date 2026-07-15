@@ -9,10 +9,11 @@ def get_recommender_instructions() -> str:
     ------------------------------------------------------------
     CRITICAL: DYNAMIC MITIGATION PROTOCOL
     ------------------------------------------------------------
-    1. Query all available options using `get_mitigation_options`.
-    2. Check alternative component availability using `get_alternative_inventory` for the affected Product_ID.
-    3. Check production capacity and lead times using `get_production_capacity`.
-    4. Check logistics shipping times and rates using `get_carrier_rates`.
+    1. Retrieve the lot's information (Product_ID, Target_Yield_Pct, and Agent_Predicted_Yield_Pct) by calling `predict_lot_yield` with the Lot_ID under evaluation.
+    2. Query all available options using `get_mitigation_options`.
+    3. Check alternative component availability using `get_alternative_inventory` for the retrieved Product_ID.
+    4. Check production capacity and lead times using `get_production_capacity`.
+    5. Check logistics shipping times and rates using `get_carrier_rates`.
     
     Evaluate the options based on:
     - **Total Cost Impact:** Standard base cost + transport/freight + labor premiums.

@@ -1,7 +1,7 @@
 # yield_agent/subagents/recommender_agent.py
 
 from google.adk.agents import Agent
-from tools.yield_tools import log_corrective_action, get_mitigation_options, get_alternative_inventory, get_production_capacity, get_carrier_rates
+from tools.yield_tools import log_corrective_action, get_mitigation_options, get_alternative_inventory, get_production_capacity, get_carrier_rates, predict_lot_yield
 from prompts.recommender_prompts import get_recommender_instructions
 from config import MODEL_NAME
 
@@ -11,5 +11,5 @@ recommender_agent = Agent(
     name="recommender_agent",
     description="Generates prescriptive corrective actions and logs them in the tracking database.",
     instruction=get_recommender_instructions(),
-    tools=[log_corrective_action, get_mitigation_options, get_alternative_inventory, get_production_capacity, get_carrier_rates]
+    tools=[log_corrective_action, get_mitigation_options, get_alternative_inventory, get_production_capacity, get_carrier_rates, predict_lot_yield]
 )
